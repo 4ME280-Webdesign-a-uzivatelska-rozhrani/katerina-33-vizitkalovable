@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kateřina | Web design a uživatelská rozhraní</title>
+  <meta name="description" content="Vizitka - Kateřina, specialistka na web design a uživatelská rozhraní" />
+  <meta name="author" content="Kateřina" />
+
+  <meta property="og:title" content="Kateřina | Web design a uživatelská rozhraní" />
+  <meta property="og:description" content="Vizitka - Kateřina, specialistka na web design a uživatelská rozhraní" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@lovable_dev" />
+  <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-cream: #FCFBF7;
+      --color-plant: #4A6F4A;
+      --color-plant-light: #9CC2A0;
+      --color-plant-dark: #2C4E2C;
+      --color-earth: #D8BEA2;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, var(--color-cream), rgba(156, 194, 160, 0.1));
+    }
+
+    .container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--color-plant-dark);
+      font-weight: 500;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-text {
+      color: rgba(44, 78, 44, 0.7);
+      margin-top: 2.5rem;
+      text-align: center;
+      max-width: 28rem;
+      font-size: 0.875rem;
+    }
+
+    .card-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      width: 100%;
+      height: 100%;
+    }
+
+    .card-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 28rem;
+      margin: 0 auto;
+    }
+
+    .business-card {
+      position: relative;
+      background-color: var(--color-cream);
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(74, 111, 74, 0.1), 0 1px 8px rgba(74, 111, 74, 0.07);
+      border: 1px solid rgba(74, 111, 74, 0.2);
+      z-index: 10;
+      aspect-ratio: 1.7 / 1;
+      max-height: 320px;
+    }
+
+    .card-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.8;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239CC2A0' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .corner-plant {
+      position: absolute;
+      top: -1rem;
+      left: -1rem;
+      width: 8rem;
+      height: 8rem;
+      color: rgba(74, 111, 74, 0.3);
+      animation: leaf-sway 4s ease-in-out infinite;
+    }
+
+    .bottom-plant {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      width: 9rem;
+      height: 9rem;
+      color: rgba(74, 111, 74, 0.2);
+      transform: rotate(180deg);
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 10;
+      padding: 1.5rem 2rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-upper {
+      margin-bottom: 1rem;
+    }
+
+    .name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.875rem;
+      font-weight: 600;
+      color: var(--color-plant);
+      animation: fade-in 0.5s ease-out forwards;
+      animation-delay: 0.1s;
+      opacity: 0;
+    }
+
+    .position {
+      font-size: 0.875rem;
+      color: rgba(44, 78, 44, 0.8);
+      font-weight: 500;
+      letter-spacing: 0.025em;
+      animation: fade-in 0.5s ease-out forwards;
+      animation-delay: 0.3s;
+      opacity: 0;
+    }
+
+    .divider {
+      width: 4rem;
+      height: 0.25rem;
+      background-color: rgba(74, 111, 74, 0.6);
+      margin: 0.75rem 0;
+      animation: fade-in 0.5s ease-out forwards;
+      animation-delay: 0.5s;
+      opacity: 0;
+    }
+
+    .info {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      animation: fade-in 0.5s ease-out forwards;
+      animation-delay: 0.7s;
+      opacity: 0;
+    }
+
+    .info div {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.625rem;
+      color: rgba(44, 78, 44, 0.9);
+    }
+
+    .info svg {
+      color: var(--color-plant);
+    }
+
+    .info a {
+      color: rgba(44, 78, 44, 0.9);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .info a:hover {
+      color: var(--color-plant);
+    }
+
+    .card-shadow {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      width: 100%;
+      border-radius: 0.75rem;
+      background-color: rgba(74, 111, 74, 0.05);
+      box-shadow: 0 10px 30px rgba(74, 111, 74, 0.1), 0 1px 8px rgba(74, 111, 74, 0.07);
+      border: 1px solid rgba(74, 111, 74, 0.1);
+      z-index: -10;
+      aspect-ratio: 1.7 / 1;
+      max-height: 320px;
+      filter: blur(2px);
+    }
+
+    @keyframes leaf-sway {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      .card-content {
+        padding: 1.25rem;
+      }
+      .name {
+        font-size: 1.5rem;
+      }
+      .position {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Digitální vizitka</h1>
+    <div class="card-container">
+      <div class="card-wrapper">
+        <!-- Main Card -->
+        <div class="business-card">
+          <!-- Card Background with Leaf Pattern -->
+          <div class="card-pattern"></div>
+          
+          <!-- Corner Plant Decoration -->
+          <div class="corner-plant">
+            <svg viewBox="0 0 100 100" fill="currentColor">
+              <path d="M50,10 C70,25 90,45 80,75 C75,90 60,95 50,90 C40,95 25,90 20,75 C10,45 30,25 50,10 Z" />
+              <path d="M50,20 C65,30 80,45 73,69 C68,80 58,84 50,80 C42,84 32,80 27,69 C20,45 35,30 50,20 Z" fill="white" fill-opacity="0.3" />
+            </svg>
+          </div>
+          
+          <!-- Right Bottom Plant Decoration -->
+          <div class="bottom-plant">
+            <svg viewBox="0 0 100 100" fill="currentColor">
+              <path d="M50,10 C70,25 90,45 80,75 C75,90 60,95 50,90 C40,95 25,90 20,75 C10,45 30,25 50,10 Z" />
+            </svg>
+          </div>
+
+          <!-- Card Content -->
+          <div class="card-content">
+            <div class="card-upper">
+              <!-- Name -->
+              <div class="name">Kateřina</div>
+              
+              <!-- Position -->
+              <div class="position">Web design a uživatelská rozhraní</div>
+              
+              <!-- Divider -->
+              <div class="divider"></div>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="info">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+                <span>123 456 789</span>
+              </div>
+              
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>U Kreativní 12, 100 00 Praha</span>
+              </div>
+              
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <a href="mailto:kateřina@webdesign.cz">kateřina@webdesign.cz</a>
+              </div>
+              
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M2 12h20"></path>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <a href="http://www.katerina-webdesign.cz" target="_blank" rel="noreferrer">www.katerina-webdesign.cz</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card Shadow/Reflection -->
+        <div class="card-shadow"></div>
+      </div>
+    </div>
+    <p class="footer-text">
+      Toto je ukázka digitální vizitky s motivem pokojových rostlin. 
+      Kombinuje moderní design s přírodními prvky pro vytvoření harmonického vzhledu.
+    </p>
+  </div>
+  
+  <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+  <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+</body>
+</html>
